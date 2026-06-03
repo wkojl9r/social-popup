@@ -1,0 +1,349 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+}
+
+#popup-container {
+  width: 470px;
+  height: 66px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  font-family: "Unbounded", "Montserrat", Arial, sans-serif;
+}
+
+.popup {
+  width: 470px;
+  height: 62px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.left {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 58px;
+  background: transparent;
+}
+
+.icon {
+  width: 58px;
+  height: 58px;
+  position: relative;
+  display: block;
+  background-image: var(--icon-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: none;
+  transform-origin: center;
+  will-change: transform;
+  isolation: isolate;
+}
+
+.icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  display: block;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.13) 23%, rgba(255, 255, 255, 0) 46%),
+    linear-gradient(315deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0) 45%);
+  -webkit-mask: var(--icon-url) center / contain no-repeat;
+  mask: var(--icon-url) center / contain no-repeat;
+  opacity: 0.42;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.right {
+  width: fit-content;
+  max-width: 390px;
+  height: 58px;
+  flex: 0 1 auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 18px;
+  color: #ffffff;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 18px;
+  border: 2px solid rgba(var(--brand-rgb), 0.68);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(135deg, rgba(var(--brand-rgb), 0.96) 0%, rgba(18, 18, 28, 0.96) 64%, rgba(7, 7, 12, 0.98) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 -10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.right::before {
+  content: "SOCIAL";
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.right span {
+  display: block;
+  max-width: 335px;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.15px;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.twitch-pop {
+  --brand-rgb: 145, 70, 255;
+}
+
+.twitch-pop .right::before {
+  content: "TWITCH";
+}
+
+.youtube-pop {
+  --brand-rgb: 255, 0, 51;
+}
+
+.youtube-pop .right::before {
+  content: "YOUTUBE";
+}
+
+.instagram-pop {
+  --brand-rgb: 225, 48, 108;
+}
+
+.instagram-pop .right::before {
+  content: "INSTAGRAM";
+}
+
+.telegram-pop {
+  --brand-rgb: 42, 171, 238;
+}
+
+.telegram-pop .right::before {
+  content: "TELEGRAM";
+}
+
+/* Local image version */
+.icon.twitch {
+  --icon-url: url("assets/twitch.png");
+}
+
+.icon.youtube {
+  --icon-url: url("assets/youtube.png");
+}
+
+.icon.instagram {
+  --icon-url: url("assets/instagram.png");
+}
+
+.icon.telegram {
+  --icon-url: url("assets/telegram.png");
+}
+
+.show-popup {
+  display: flex;
+  animation: popup-in 0.9s cubic-bezier(0.18, 0.82, 0.22, 1) both;
+}
+
+.show-popup .icon {
+  animation: icon-in 0.78s cubic-bezier(0.18, 0.82, 0.22, 1) both;
+}
+
+.show-popup .icon::after {
+  animation: icon-gloss 1.25s ease-out 0.12s both;
+}
+
+.show-popup .right {
+  animation: text-in 1.05s cubic-bezier(0.18, 0.82, 0.22, 1) both;
+}
+
+.hiding-popup {
+  display: flex;
+  animation: popup-out 0.65s ease-in both;
+}
+
+.hiding-popup .icon {
+  animation: icon-out 0.65s ease-in both;
+}
+
+.hiding-popup .icon::after {
+  animation: icon-gloss-out 0.65s ease-in both;
+}
+
+.hiding-popup .right {
+  animation: text-out 0.65s ease-in both;
+}
+
+.no-popup {
+  display: none !important;
+}
+
+@keyframes popup-in {
+  0% {
+    width: 58px;
+    transform: translateX(-12px);
+    opacity: 0;
+  }
+
+  22% {
+    width: 58px;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  58% {
+    width: 470px;
+  }
+
+  100% {
+    width: 470px;
+  }
+}
+
+@keyframes text-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-16px) scaleX(0.94);
+    transform-origin: left center;
+  }
+
+  42% {
+    opacity: 0;
+    transform: translateX(-16px) scaleX(0.94);
+  }
+
+  66% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1.015);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+@keyframes icon-in {
+  0% {
+    transform: translateX(-10px) scale(0.76) rotate(-5deg);
+    opacity: 0;
+    filter: none;
+  }
+
+  54% {
+    transform: translateX(0) scale(1.08) rotate(1.2deg);
+    opacity: 1;
+    filter: none;
+  }
+
+  100% {
+    transform: translateX(0) scale(1) rotate(0deg);
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes popup-out {
+  0% {
+    width: 470px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  46% {
+    width: 58px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    width: 58px;
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+@keyframes text-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    transform-origin: left center;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-14px) scaleX(0.92);
+  }
+}
+
+@keyframes icon-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: none;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.86) rotate(-2deg);
+    filter: none;
+  }
+}
+
+@keyframes icon-gloss {
+  0% {
+    opacity: 0.08;
+    transform: translate(-6px, -6px) scale(0.96);
+  }
+
+  48% {
+    opacity: 0.62;
+    transform: translate(0, 0) scale(1.01);
+  }
+
+  100% {
+    opacity: 0.42;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes icon-gloss-out {
+  0% {
+    opacity: 0.42;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
